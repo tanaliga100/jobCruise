@@ -34,7 +34,6 @@ const router = createBrowserRouter([
     element: <RootLayout />,
   },
 ]);
-
 export default router;
 
 // children: [

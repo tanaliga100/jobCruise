@@ -1,8 +1,8 @@
-import { Divider } from "@chakra-ui/react";
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../components/shared/Navbar";
+import homeImage from "/public/hero.svg";
 
 const HomeLayout: React.FC = () => {
   const location = useLocation();
@@ -10,10 +10,9 @@ const HomeLayout: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <Divider />
       <Wrapper>
         <section className="left">
-          <h1>Logo Here</h1>
+          <h1 className="logo">Job Tracking App</h1>
           <p>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita,
             enim consequuntur culpa nesciunt laboriosam fuga autem repellendus
@@ -23,14 +22,25 @@ const HomeLayout: React.FC = () => {
             labore laborum, eligendi sed, nisi magni harum!
           </p>
           {location.pathname === "/" && (
-            <section className="link">
+            <section className="start">
               <Link to="/register"> Start</Link>
             </section>
           )}
+          {(location.pathname === "/register" ||
+            location.pathname === "/login") && (
+            <section className="start">
+              <Link to="/register"> Login as Demo User</Link>
+            </section>
+          )}
         </section>
-        <ScrollableSection>
-          <Outlet />
-        </ScrollableSection>
+        <section className="right">
+          <ScrollableSection>
+            {location.pathname === "/" && (
+              <img src={homeImage} width={300} height={300} />
+            )}
+            <Outlet />
+          </ScrollableSection>
+        </section>
       </Wrapper>
     </React.Fragment>
   );
@@ -47,23 +57,34 @@ const Wrapper = styled.div`
   padding: 3rem;
   grid-template-columns: 1fr 1fr;
 
+  p {
+    font-size: 1rem;
+  }
+
+  .logo {
+    font-size: 3rem;
+    font-weight: bolder;
+  }
+
   @media screen and (max-width: 700px) {
     display: flex;
-
     padding: 2rem;
+    padding-top: 5rem;
     flex-direction: column;
-    .left {
+    .right {
       display: none;
     }
   }
 
-  .link {
+  .start {
     background-color: black;
+    padding: 1rem 1.4rem;
+    font-size: 1rem;
+    font-weight: 900;
     color: white;
     display: block;
     max-width: fit-content;
     margin: 0 auto;
-    padding: 0.3rem 1rem;
     margin-top: 1rem;
   }
 `;

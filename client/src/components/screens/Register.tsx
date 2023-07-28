@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Register: React.FC = () => {
   return (
     <Wrapper>
-      <h1>Register Page</h1>
+      <h1 className="title">Register Page</h1>
       <form>
         <div>
           <label htmlFor="name">Name:</label>
@@ -19,11 +19,12 @@ const Register: React.FC = () => {
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" name="password" />
         </div>
-        <button type="submit">Submit</button>
+        <button className="submit" type="submit">
+          Submit
+        </button>
       </form>
-      Already have an account ?
       <div className="link">
-        <Link to="/login">Login</Link>
+        Already have an account ? {"      "} <Link to="/login">Login</Link>
       </div>
     </Wrapper>
   );
@@ -36,21 +37,33 @@ const Wrapper = styled.div`
   gap: 1rem;
   padding: 3rem;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add the box shadow here */
-  h1 {
+
+  .title {
     border-bottom: 0.1rem solid black;
     color: black;
     padding: 1rem;
     border-radius: 2px;
     margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 900;
   }
-  .link {
-    background-color: black;
-    color: white;
+
+  a {
+    text-decoration: underline;
+    background-color: none;
   }
 
   form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    .submit {
+      margin: 1rem;
+      width: 60%;
+      margin: 0 auto;
+      background-color: orange;
+      padding: 0.5rem;
+    }
   }
 `;

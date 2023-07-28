@@ -8,13 +8,20 @@ const Navbar: React.FC = () => {
       <Link to="/">
         <h1>jobCruise</h1>
       </Link>
-      <section className="link">
-        <Link to="/register"> To Register</Link>
-        <Link to="/login"> To Login</Link>
-      </section>
+      {/* {location.pathname === "/register" && (
+        <section className="link">
+          <Link to="/login"> To Login</Link>
+        </section>
+      )}
+      {location.pathname === "/login" && (
+        <section className="link">
+          <Link to="/register"> To Register</Link>
+        </section>
+      )} */}
     </Wrapper>
   );
 };
+
 const Wrapper = styled.nav`
   height: 100px;
   background-color: black;
@@ -32,6 +39,12 @@ const Wrapper = styled.nav`
     display: flex;
     padding-right: 15rem;
     gap: 1rem;
+  }
+
+  @media screen and (max-width: 500px) {
+    .link {
+      display: none;
+    }
   }
 `;
 
