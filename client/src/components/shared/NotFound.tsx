@@ -1,5 +1,5 @@
+import { Button, Container, Heading, Text } from "@chakra-ui/react";
 import { Link, useRouteError } from "react-router-dom";
-import styled from "styled-components";
 interface IError {
   data: string;
   status: number;
@@ -11,40 +11,16 @@ const NotFoundPage = () => {
   console.log("ERROR", error);
 
   return (
-    <Wrapper className="error-section">
-      <h1 className="error-title">
+    <Container p={10} centerContent>
+      <Heading p={3}>
         {error.statusText} : {error.status}
-      </h1>
-      <p className="error-content">{error.data}</p>
-      <div className="error-link">
+      </Heading>
+      <Text>{error.data}</Text>
+      <Button p="4" m={10}>
         <Link to="/">Go Back</Link>
-      </div>
-    </Wrapper>
+      </Button>
+    </Container>
   );
 };
 
 export default NotFoundPage;
-
-const Wrapper = styled.div`
-  display: grid;
-  padding: 3rem;
-  text-align: center;
-  gap: 2rem;
-  width: 100vw;
-  margin: 0 auto;
-
-  .error-title {
-    font-size: 3rem;
-    font-weight: 800;
-  }
-  .error-content {
-    color: orangered;
-    font-size: 1rem;
-  }
-  .error-link {
-    background-color: black;
-    color: orangered;
-    width: auto;
-    padding: 1rem;
-  }
-`;

@@ -35,8 +35,8 @@ html {
   place-items: center;
   padding: 3rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-temp 1remlate-columns: 1fr 1fr;
+  gap:;
 }
 h1 {
   font-size: 2rem;

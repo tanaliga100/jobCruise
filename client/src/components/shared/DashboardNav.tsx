@@ -1,31 +1,21 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Navbar: React.FC = () => {
-  const location = useLocation();
+const DashboardNav: React.FC = () => {
   return (
     <Wrapper>
       <Link to="/">
         <h1>JOBCRUISE</h1>
       </Link>
-      {location.pathname === "/register" && (
-        <section className="link">
-          <Link to="/login"> To Login </Link>
-        </section>
-      )}
-      {location.pathname === "/login" && (
-        <section className="link">
-          <Link to="/register"> To Register</Link>
-        </section>
-      )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.nav`
-  height: 100px;
-  color: orangered;
+  max-height: 5rem;
+  background-color: white;
+  color: black;
   justify-content: space-between;
   display: flex;
   flex-grow: 1;
@@ -48,4 +38,4 @@ const Wrapper = styled.nav`
   }
 `;
 
-export default Navbar;
+export default DashboardNav;
