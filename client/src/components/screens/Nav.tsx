@@ -1,19 +1,13 @@
-import { Heading } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-
+import logo from "../../../public/logo.svg";
 const Nav = () => {
   return (
-    <Heading
-      as="h1"
-      size="lg"
-      noOfLines={1}
-      color="antiquewhite"
-      p={10}
-      fontWeight="extrabold"
-      bg="teal.500"
-    >
-      <Link to="/">JOBCRUISE</Link>
-    </Heading>
+    <Box p={3} _hover={{ cursor: "pointer" }} bg="blackAlpha.900">
+      <Link to="/">
+        <img src={logo} />
+      </Link>
+    </Box>
   );
 };
 export default Nav;

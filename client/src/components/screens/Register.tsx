@@ -1,18 +1,8 @@
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
+import FormRow from "../shared/FormRow";
 import Nav from "./Nav";
-
 const Register: React.FC = () => {
   return (
     <Box>
@@ -21,23 +11,41 @@ const Register: React.FC = () => {
         <Heading mb="3" color="teal.400">
           Register
         </Heading>
-        <form>
-          <FormControl>
-            <FormLabel>First Name</FormLabel>
-            <Input type="text" />
-            <FormLabel>Last Name</FormLabel>
-            <Input type="text" />
-            <FormLabel>Location</FormLabel>
-            <Input type="text" />
-            <FormLabel>Email</FormLabel>
-            <Input type="email" />
-            <FormLabel>Password</FormLabel>
-            <Input type="password" />
-          </FormControl>
+        <Form>
+          <FormRow
+            labelText="First Name"
+            name="firstName"
+            type="text"
+            placeholder="Enter First Name"
+          />
+          <FormRow
+            labelText="Last Name"
+            name="lastName"
+            type="text"
+            placeholder="Enter Last Name"
+          />
+          <FormRow
+            labelText="Location"
+            name="location"
+            type="text"
+            placeholder="Enter Location"
+          />
+          <FormRow
+            labelText="Email"
+            name="email"
+            type="email"
+            placeholder="Enter Email"
+          />
+          <FormRow
+            labelText="Password"
+            name="password"
+            type="password"
+            placeholder="Enter Password"
+          />
           <Button mt={2} type="submit" bg="teal.500" color="white">
             Submit
           </Button>
-        </form>
+        </Form>
         <Flex py="5" gap={6}>
           <Text fontSize={"lg"}>Already have an account ?</Text>
           <Button size="xs">

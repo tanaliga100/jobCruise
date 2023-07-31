@@ -5,7 +5,12 @@ import Register from "./components/screens/Register";
 import NotFoundPage from "./components/shared/NotFound";
 import DashboardLayout from "./layout/DashboardLayout";
 import RootLayout from "./layout/RootLayout";
+import AddJobPage from "./pages/AddJobPage";
+import AllJobs from "./pages/AllJobs";
+import DashboardPage from "./pages/DashboardPage";
+import EditJob from "./pages/EditJob";
 import LandingPage from "./pages/LandingPage";
+import Profile from "./pages/ProfilePage";
 
 const App: React.FC = () => {
   const router = createBrowserRouter([
@@ -27,8 +32,31 @@ const App: React.FC = () => {
           element: <Register />,
         },
         {
-          path: "/dashboard",
+          path: "dashboard",
           element: <DashboardLayout />,
+          children: [
+            {
+              index: true,
+              element: <DashboardPage />,
+            },
+
+            {
+              path: "alljobs",
+              element: <AllJobs />,
+            },
+            {
+              path: "addJob",
+              element: <AddJobPage />,
+            },
+            {
+              path: "editjob",
+              element: <EditJob />,
+            },
+            {
+              path: "profile",
+              element: <Profile />,
+            },
+          ],
         },
       ],
     },

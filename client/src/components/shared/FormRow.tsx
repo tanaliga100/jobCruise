@@ -1,5 +1,5 @@
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import React from "react";
-import styled from "styled-components";
 
 interface IProps {
   name: string;
@@ -11,22 +11,10 @@ interface IProps {
 
 const FormRow: React.FC<IProps> = (props) => {
   return (
-    <Wrapper className="form">
-      <label htmlFor={props.labelText}>{props.labelText || props.name}</label>
-      <input
-        type={props.type}
-        id={props.name}
-        name={props.name}
-        required
-        placeholder={props.placeholder}
-        //    defaultValue={props.defaulValue}
-      />
-    </Wrapper>
+    <FormControl>
+      <FormLabel>{props.labelText || props.name}</FormLabel>
+      <Input type={props.type} required placeholder={props.placeholder} />
+    </FormControl>
   );
 };
 export default FormRow;
-
-const Wrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-`;

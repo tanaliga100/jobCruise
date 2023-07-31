@@ -1,14 +1,6 @@
-import {
-  Button,
-  Container,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Text,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Button, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { Form, Link } from "react-router-dom";
+import FormRow from "../shared/FormRow";
 import Nav from "./Nav";
 
 const Login = () => {
@@ -19,17 +11,29 @@ const Login = () => {
         <Heading py="3" color="teal.400">
           Login{" "}
         </Heading>
-        <form>
-          <FormControl>
+        <Form>
+          {/* <FormControl>
             <FormLabel>Email</FormLabel>
-            <Input type="email" />
+            <Input type="email" required />
             <FormLabel>Password</FormLabel>
-            <Input type="password" />
-          </FormControl>
+            <Input type="password" required />
+          </FormControl> */}
+          <FormRow
+            labelText="Email"
+            name="Email"
+            type="email"
+            placeholder="Enter Email"
+          />
+          <FormRow
+            labelText="Password"
+            name="Password"
+            type="password"
+            placeholder="Enter Password"
+          />
           <Button mt={2} type="submit" bg="teal.500" color="white">
             Submit
           </Button>
-        </form>
+        </Form>
         <Flex py="5" gap={6}>
           <Text fontSize={"lg"}>Dont have an account?</Text>
           <Button size="xs">
@@ -37,7 +41,7 @@ const Login = () => {
           </Button>
         </Flex>
         <Button bg="green.300" my={4} color="white">
-          Explore the App
+          <Link to="/dashboard">Explore the App</Link>
         </Button>
       </Container>
     </>
