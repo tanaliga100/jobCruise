@@ -4,16 +4,18 @@ import { NavLink } from "react-router-dom";
 import { ILinks, links } from "../../utils/constants";
 const Sidebar: React.FC = () => {
   return (
-    <Stack gap={10} px={5}>
+    <Stack gap={5} pt={5}>
       {links.map((link: ILinks) => {
         const { icon, id, linkTitle, path } = link;
         return (
           <NavLink
             style={({ isActive }) => {
               return {
-                padding: ".3rem",
-                color: isActive ? "teal" : "",
-                //  background: isActive ? "teal" : "",
+                paddingLeft: "1rem",
+                color: isActive ? "orange" : "",
+                fontWeight: isActive ? "bold" : "",
+                //  background: isActive ? "#b5d3ff" : "",
+                //  textDecoration: isActive ? "underline" : "",
               };
             }}
             end

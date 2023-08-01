@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 
 interface IProps {
-  user: { name: string };
+  user?: { name: string };
 }
 const Nav: React.FC<IProps> = (props: IProps) => {
   return (
@@ -13,7 +13,7 @@ const Nav: React.FC<IProps> = (props: IProps) => {
       alignItems="center"
       px={12}
       _hover={{ cursor: "pointer" }}
-      bg="blackAlpha.900"
+      //  bg="blackAlpha.900"
       direction="row"
     >
       <Link to="/">
