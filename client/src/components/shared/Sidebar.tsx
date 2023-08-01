@@ -1,29 +1,38 @@
-import { Stack } from "@chakra-ui/react";
+import { IconButton, Stack } from "@chakra-ui/react";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { ILinks, links } from "../../utils/constants";
 const Sidebar: React.FC = () => {
-  const RenderLinks = links.map((link: ILinks) => {
-    return (
-      <NavLink end key={link.id} to={link.path}>
-        {link.linkTitle}
-      </NavLink>
-    );
-  });
+  return (
+    <Stack gap={10} px={5}>
+      {links.map((link: ILinks) => {
+        const { icon, id, linkTitle, path } = link;
+        return (
+          <NavLink
+            style={({ isActive }) => {
+              return {
+                padding: ".3rem",
+                color: isActive ? "teal" : "",
+                //  background: isActive ? "teal" : "",
+              };
+            }}
+            end
+            to={path}
+            key={id}
+          >
+            <IconButton
+              size="lg"
+              variant="unstyled"
+              aria-label="icons"
+              icon={icon}
+            />
 
-  return <Stack>{RenderLinks}</Stack>;
+            {linkTitle}
+          </NavLink>
+        );
+      })}
+    </Stack>
+  );
 };
 
 export default Sidebar;
-
-interface ILinks {
-  id: number;
-  linkTitle: string;
-  path: string;
-}
-const links: ILinks[] = [
-  { id: 1, linkTitle: "Dashboard", path: "dashboard" },
-  { id: 2, linkTitle: "All Jobs", path: "alljobs" },
-  { id: 3, linkTitle: "Add Job", path: "addJob" },
-  { id: 5, linkTitle: "Edit Job", path: "edijob" },
-  { id: 6, linkTitle: "Profile", path: "profile" },
-];

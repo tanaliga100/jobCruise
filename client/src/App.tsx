@@ -41,7 +41,7 @@ const App: React.FC = () => {
             },
 
             {
-              path: "alljobs",
+              path: "allJobs",
               element: <AllJobs />,
             },
             {
@@ -49,11 +49,11 @@ const App: React.FC = () => {
               element: <AddJobPage />,
             },
             {
-              path: "editjob",
+              path: "editJob",
               element: <EditJob />,
             },
             {
-              path: "profile",
+              path: "admin",
               element: <Profile />,
             },
           ],

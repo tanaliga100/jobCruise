@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import svgIcon from "../../public/hero.svg";
+import svgIcon from "../assets/hero.svg";
 const LandingPage = () => {
   return (
     //     <Center w="100%" h="100%" pt="32">
