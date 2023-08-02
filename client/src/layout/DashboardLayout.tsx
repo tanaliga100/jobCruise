@@ -45,6 +45,7 @@ const DashboardLayout = () => {
         <IconButton
           aria-label="icon"
           size="sm"
+          mb={5}
           display={{ base: "none", md: "block" }}
           icon={<Logo />}
         />

@@ -4,5 +4,4 @@ export const notFoundMiddleware = async (req, res, next) => {
           <p>We cannot find what you are looking for...</p>
           <a href="/">Go Back</a>
      `);
-  next();
 };

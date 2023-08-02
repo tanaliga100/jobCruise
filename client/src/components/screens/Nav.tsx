@@ -9,12 +9,14 @@ interface IProps {
 const Nav: React.FC<IProps> = (props: IProps) => {
   return (
     <Flex
+      py={4}
       justifyContent="space-between"
       alignItems="center"
       px={12}
       _hover={{ cursor: "pointer" }}
       //  bg="blackAlpha.900"
       direction="row"
+      boxShadow="0 2px 10px rgba(0, 0, 0, 0.2)"
     >
       <Link to="/">
         <img src={logo} alt="Logo" />{" "}
