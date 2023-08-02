@@ -1,7 +1,7 @@
-import { Box } from "@chakra-ui/react";
+import { Box } from "@mui/material";
 
 const Footer = () => {
-  return <Box height={"20"} bg="black"></Box>;
+  return <Box></Box>;
 };
 
 export default Footer;

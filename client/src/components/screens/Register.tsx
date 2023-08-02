@@ -1,58 +1,51 @@
-import { Box, Button, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { Form, Link } from "react-router-dom";
 import FormRow from "../shared/FormRow";
-import Nav from "./Nav";
 const Register: React.FC = () => {
   return (
     <Box>
-      <Nav />
-      <Container py="10">
-        <Heading mb="3" color="teal.400">
-          Register
-        </Heading>
-        <Form>
-          <FormRow
-            labelText="First Name"
-            name="firstName"
-            type="text"
-            placeholder="Enter First Name"
-          />
-          <FormRow
-            labelText="Last Name"
-            name="lastName"
-            type="text"
-            placeholder="Enter Last Name"
-          />
-          <FormRow
-            labelText="Location"
-            name="location"
-            type="text"
-            placeholder="Enter Location"
-          />
-          <FormRow
-            labelText="Email"
-            name="email"
-            type="email"
-            placeholder="Enter Email"
-          />
-          <FormRow
-            labelText="Password"
-            name="password"
-            type="password"
-            placeholder="Enter Password"
-          />
-          <Button mt={2} type="submit" bg="teal.500" color="white">
-            Submit
-          </Button>
-        </Form>
-        <Flex py="5" gap={6}>
-          <Text fontSize={"lg"}>Already have an account ?</Text>
-          <Button size="xs">
-            <Link to="/login">Login</Link>
-          </Button>
-        </Flex>
-      </Container>
+      <Form>
+        <FormRow
+          labelText="First Name"
+          name="firstName"
+          type="text"
+          placeholder="Enter First Name"
+        />
+        <FormRow
+          labelText="Last Name"
+          name="lastName"
+          type="text"
+          placeholder="Enter Last Name"
+        />
+        <FormRow
+          labelText="Location"
+          name="location"
+          type="text"
+          placeholder="Enter Location"
+        />
+        <FormRow
+          labelText="Email"
+          name="email"
+          type="email"
+          placeholder="Enter Email"
+        />
+        <FormRow
+          labelText="Password"
+          name="password"
+          type="password"
+          placeholder="Enter Password"
+        />
+        <Button variant="contained" sx={{ m: "1rem" }} color="info">
+          Submit
+        </Button>
+        <Typography>
+          Already have an account ?
+          <Link to="/" className="link">
+            Login
+          </Link>
+        </Typography>
+      </Form>
     </Box>
   );
 };

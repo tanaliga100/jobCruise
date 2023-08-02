@@ -20,17 +20,21 @@ const App: React.FC = () => {
       errorElement: <NotFoundPage />,
       children: [
         {
-          index: true,
+          // index: true,
           element: <LandingPage />,
+          children: [
+            {
+              index: true,
+              // path: "login",
+              element: <Login />,
+            },
+            {
+              path: "register",
+              element: <Register />,
+            },
+          ],
         },
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "register",
-          element: <Register />,
-        },
+
         {
           path: "dashboard",
           element: <DashboardLayout />,

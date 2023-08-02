@@ -1,81 +1,46 @@
-import {
-  Button,
-  Center,
-  Container,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import svgIcon from "../assets/hero.svg";
+import { Grid, Typography } from "@mui/material";
+import { Link, Outlet } from "react-router-dom";
+import homeImage from "../assets/hero.svg";
 const LandingPage = () => {
   return (
-    //     <Center w="100%" h="100%" pt="32">
-    //       {/* LEFT */}
-    //       <Container w="50vw">
-    //         <Stack pb="10">
-    //           <Heading as="h1" size="3xl" fontWeight="extrabold">
-    //             Job
-    //             <Text color="teal.400">Tracking</Text>
-    //             App
-    //           </Heading>
-    //         </Stack>
-    //         <Heading fontSize="medium" fontWeight="thin">
-    //           a web application designed to help users efficiently track and manage
-    //           their job applications throughout the entire job search process. The
-    //           app provides a user-friendly interface to keep a record of all job
-    //           applications, interviews, and relevant details, ensuring users stay
-    //           organized and never miss important opportunities.
-    //         </Heading>
-    //         <Flex gap={3} pt="10">
-    //           <Button colorScheme="teal" size="lg">
-    //             <Link to="register"> Register</Link>
-    //           </Button>
-    //           <Button colorScheme="teal" size="lg">
-    //             <Link to="login">Login</Link>
-    //           </Button>
-    //         </Flex>
-    //       </Container>
-    //       <Container>
-    //         <img src={svgIcon} />
-    //       </Container>
-    //        </Center>
-    <Center
-      w="100%"
-      minH="100vh"
-      py={{ base: "8", md: "16" }}
-      px={{ base: "4", md: "8" }}
+    <Grid
+      gap={10}
+      container
+      textAlign="center"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
     >
-      {/* LEFT */}
-      <Stack spacing={{ base: "4", md: "8" }} w={{ base: "100%", md: "50vw" }}>
-        <Heading as="h1" size="3xl" fontWeight="extrabold">
+      <Grid item xs={4}>
+        <img src={homeImage} alt="landing-image" />
+        <Typography variant="h1" component="animate" fontWeight={800} p={2}>
           Job
-          <Text color="teal.400">Tracking</Text>
+          <Typography
+            variant="h2"
+            component="animateTransform"
+            px={2}
+            fontWeight={900}
+            color="#0288d1;"
+          >
+            Tracking
+          </Typography>
           App
-        </Heading>
-        <Text fontSize={{ base: "sm", md: "md", lg: "2xl" }} fontWeight="thin">
-          A web application designed to help users efficiently track and manage
-          their job applications throughout the entire job search process. The
-          app provides a user-friendly interface to keep a record of all job
-          applications, interviews, and relevant details, ensuring users stay
-          organized and never miss important opportunities.
-        </Text>
-        <Flex direction={{ base: "column", md: "row" }} gap={3} pt="6">
-          <Button colorScheme="teal" size="lg">
-            <Link to="register"> Register</Link>
-          </Button>
-          <Button colorScheme="teal" size="lg">
-            <Link to="login">Login</Link>
-          </Button>
-        </Flex>
-      </Stack>
-
-      {/* RIGHT */}
-      <Container display={{ base: "none", md: "block" }}>
-        <img src={svgIcon} alt="Job Tracking App" />
-      </Container>
-    </Center>
+        </Typography>
+        <Typography variant="body2" fontWeight={900} pb={3}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis rem
+          quod dolores laboriosam aut. Commodi, maxime autem consequuntur, non
+          doloribus laboriosam nam quos quis obcaecati reprehenderit, quaerat
+          veritatis. Optio nam quae quos blanditiis, dolor sapiente voluptates?
+          Accusamus explicabo odio, eius sed assumenda ad ratione quidem
+        </Typography>
+        <Link to="/dashboard" className="link-explore">
+          Explore
+        </Link>
+      </Grid>
+      <Grid item xs={2}>
+        <Outlet />
+      </Grid>
+    </Grid>
   );
 };
 

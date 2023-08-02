@@ -5,14 +5,10 @@ import Job from "../models/job.model.js";
 // CREATE JOB
 export const CREATE_JOB = asyncMiddleware(async (req, res, next) => {
   const { company, position } = req.body;
-  if (!company || !position) {
-    return res.status(400).json({
-      msg: "All Fields are required",
-    });
-  }
 
   // submitting data to DB
   const job = await Job.create({ company, position });
+  // send back the reponse
   res.status(StatusCodes.CREATED).json({
     msg: "JOB CREATED",
     data: job,
@@ -68,11 +64,7 @@ export const DELETE_JOB = asyncMiddleware(async (req, res, next) => {
 export const UPDATE_JOB = asyncMiddleware(async (req, res, next) => {
   const { id: jobID } = req.params;
   const { company, position } = req.body;
-  if (!company || !position) {
-    return res.status(404).json({
-      msg: "All Fields are required",
-    });
-  }
+
   // query
   const foundJob = await Job.find({ _id: jobID });
 

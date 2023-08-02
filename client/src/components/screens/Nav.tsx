@@ -1,39 +1,16 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Box } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../../assets/logo.svg";
-
-interface IProps {
-  user?: { name: string };
-}
-const Nav: React.FC<IProps> = (props: IProps) => {
+import navLogo from "../../assets/logo.svg";
+const Nav: React.FC = () => {
   return (
-    <Flex
-      py={4}
-      justifyContent="space-between"
-      alignItems="center"
-      px={12}
-      _hover={{ cursor: "pointer" }}
-      //  bg="blackAlpha.900"
-      direction="row"
-      boxShadow="0 2px 10px rgba(0, 0, 0, 0.2)"
+    <Box
+      bgcolor="white"
+      color="black "
+      p={2}
+      boxShadow="0 0 5px 1px   rgba(0,0,0, 0.3)"
     >
-      <Link to="/">
-        <img src={logo} alt="Logo" />{" "}
-        {/* Add an alt attribute for the <img> tag */}
-      </Link>
-      <Text
-        as="h1"
-        fontSize="xl"
-        fontWeight="extrabold"
-        color="whiteAlpha.600"
-        ml={3}
-        pr={5}
-      >
-        {props?.user?.name}
-      </Text>{" "}
-      {/* Use margin-left (ml) for spacing */}
-    </Flex>
+      <img src={navLogo} alt="logo" />
+    </Box>
   );
 };
 

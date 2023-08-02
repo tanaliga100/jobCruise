@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import { Box } from "@mui/material";
 import React from "react";
 
 const Hero: React.FC<IProps> = (props) => {
@@ -6,11 +6,7 @@ const Hero: React.FC<IProps> = (props) => {
 
   //   const theme = useTheme();
   //   const path = props?.text.slice(1, props.text?.length);
-  return (
-    <Heading as="p" size="sm">
-      {/* {path} */}
-    </Heading>
-  );
+  return <Box>{/* {path} */}</Box>;
 };
 
 export default Hero;

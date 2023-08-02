@@ -1,50 +1,40 @@
-import { Button, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Typography } from "@mui/material";
 import { Form, Link } from "react-router-dom";
 import FormRow from "../shared/FormRow";
-import Nav from "./Nav";
 
 const Login = () => {
   return (
-    <>
-      <Nav />
-      <Container py="10">
-        <Heading py="3" color="teal.400">
-          Login{" "}
-        </Heading>
-        <Form>
-          {/* <FormControl>
+    <Box>
+      <Form>
+        {/* <FormControl>
             <FormLabel>Email</FormLabel>
             <Input type="email" required />
             <FormLabel>Password</FormLabel>
             <Input type="password" required />
           </FormControl> */}
-          <FormRow
-            labelText="Email"
-            name="Email"
-            type="email"
-            placeholder="Enter Email"
-          />
-          <FormRow
-            labelText="Password"
-            name="Password"
-            type="password"
-            placeholder="Enter Password"
-          />
-          <Button mt={2} type="submit" bg="teal.500" color="white">
-            Submit
-          </Button>
-        </Form>
-        <Flex py="5" gap={6}>
-          <Text fontSize={"lg"}>Dont have an account?</Text>
-          <Button size="xs">
-            <Link to="/register">Register</Link>
-          </Button>
-        </Flex>
-        <Button bg="green.300" my={4} color="white">
-          <Link to="/dashboard">Explore the App</Link>
+        <FormRow
+          labelText="Email"
+          name="Email"
+          type="email"
+          placeholder="Enter Email"
+        />
+        <FormRow
+          labelText="Password"
+          name="Password"
+          type="password"
+          placeholder="Enter Password"
+        />
+        <Button variant="contained" sx={{ m: "1rem" }} color="info">
+          Submit
         </Button>
-      </Container>
-    </>
+        <Typography>
+          Already have an account ?
+          <Link to="/register" className="link">
+            Register
+          </Link>
+        </Typography>
+      </Form>
+    </Box>
   );
 };
 export default Login;

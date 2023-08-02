@@ -1,11 +1,11 @@
-import { Box } from "@chakra-ui/react";
+import { Box } from "@mui/material";
 import React from "react";
 import { Outlet } from "react-router-dom";
 // import homeImage from "../../public/hero.svg";
 const RootLayout: React.FC = () => {
   //   const pathName = useLocation().pathname;
   return (
-    <Box w="100%">
+    <Box>
       <Outlet />
     </Box>
   );

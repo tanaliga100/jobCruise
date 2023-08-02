@@ -1,4 +1,4 @@
-import { Button, Container, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Typography } from "@mui/material";
 import { Link, useRouteError } from "react-router-dom";
 interface IError {
   data: string;
@@ -11,15 +11,15 @@ const NotFoundPage = () => {
   console.log("ERROR", error);
 
   return (
-    <Container p={10} centerContent>
-      <Heading p={3}>
+    <Box>
+      <Typography p={3}>
         {error.statusText} : {error.status}
-      </Heading>
-      <Text>{error.data}</Text>
-      <Button p="4" m={10}>
+      </Typography>
+      <Typography>{error.data}</Typography>
+      <Button>
         <Link to="/">Go Back</Link>
       </Button>
-    </Container>
+    </Box>
   );
 };
 

@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Container, FormControl, FormLabel, TextField } from "@mui/material";
 import React from "react";
 
 interface IProps {
@@ -11,10 +11,20 @@ interface IProps {
 
 const FormRow: React.FC<IProps> = (props) => {
   return (
-    <FormControl>
-      <FormLabel>{props.labelText || props.name}</FormLabel>
-      <Input type={props.type} required placeholder={props.placeholder} />
-    </FormControl>
+    <Container maxWidth="sm" sx={{ textAlign: "left", padding: ".3rem" }}>
+      <FormControl fullWidth>
+        <FormLabel sx={{ p: ".3rem" }}>
+          {props.labelText || props.name}
+        </FormLabel>
+        <TextField
+          variant="outlined"
+          size="small"
+          type={props.type}
+          required
+          placeholder={props.placeholder}
+        />
+      </FormControl>
+    </Container>
   );
 };
 export default FormRow;

@@ -2,7 +2,7 @@ export interface ILinks {
   id: number;
   linkTitle: string;
   path: string;
-  icon: React.ReactElement;
+  icon?: React.ReactElement;
 }
 export const links: ILinks[] = [
   {

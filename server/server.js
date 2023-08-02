@@ -8,10 +8,8 @@ import morgan from "morgan";
 import { connectDB } from "./config/connectDB.js";
 import { errorHandlerMiddleware } from "./middlewares/errorHandler.middleware.js";
 import { notFoundMiddleware } from "./middlewares/notFound.middleware.js";
-import { validationMiddleware } from "./middlewares/validationMiddleware.js";
 import AuthRoute from "./routes/auth.routes.js";
 import JobsRoute from "./routes/jobs.routes.js";
-import { default as testSCHEMA } from "./validators/schemas.js";
 
 // HEAD MIDDLEWARES
 dotenv.config();
@@ -27,11 +25,11 @@ app.get("/", (req, res) => {
 app.use(`/api/v1/auth`, AuthRoute);
 app.use(`/api/v1/jobs`, JobsRoute);
 
-// simulation express validator
-app.post("/api/v1/test", validationMiddleware(testSCHEMA), (req, res) => {
-  console.log(req.body);
-  res.status(200).json({ msg: "data received", ...req.body });
-});
+// // simulation express validator
+// app.post("/api/v1/test", validationMiddleware(testSCHEMA), (req, res) => {
+//   console.log(req.body);
+//   res.status(200).json({ msg: "data received", ...req.body });
+// });
 
 // TAIL MIDDLEWARES
 app.use(notFoundMiddleware);
