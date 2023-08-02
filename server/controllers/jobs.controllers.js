@@ -1,119 +1,90 @@
-// simulation
-
-import { nanoid as id } from "nanoid";
+import { StatusCodes } from "http-status-codes";
+import { NotFoundError } from "../errors/CustomError.js";
+import { asyncMiddleware } from "../middlewares/asyncMiddleware.js";
 import Job from "../models/job.model.js";
-let jobs = [
-  { id: id(), company: "Apple", position: "Front End" },
-  { id: id(), company: "Google", position: "Front End" },
-  { id: id(), company: "Microsoft", position: "Full Stack" },
-];
-
-export const CREATE_JOB = async (req, res, next) => {
-  try {
-    const { company, position } = req.body;
-    if (!company || !position) {
-      return res.status(400).json({
-        msg: "All Fields are required",
-      });
-    }
-    // submitting data to DB
-    const job = await Job.create({ company, position });
-    res.status(200).json({
-      msg: "JOB CREATED",
-      data: job,
-    });
-  } catch (error) {
-    res.status(400).json({
-      msg: "SOMETHING WENT WRONG",
+// CREATE JOB
+export const CREATE_JOB = asyncMiddleware(async (req, res, next) => {
+  const { company, position } = req.body;
+  if (!company || !position) {
+    return res.status(400).json({
+      msg: "All Fields are required",
     });
   }
-};
+  // submitting data to DB
+  const job = await Job.create({ company, position });
+  res.status(StatusCodes.CREATED).json({
+    msg: "JOB CREATED",
+    data: job,
+  });
+});
 
-export const GET_JOB = async (req, res, next) => {
-  try {
-    const { id: jobID } = req.params;
-    const currentJob = jobs.find((job) => {
-      return job.id === jobID;
-    });
-    if (!currentJob) {
-      return res.status(400).json({
-        msg: "No job found with id :   " + jobID,
-      });
-    }
-    res.status(200).json({
-      msg: "SINGLE JOB",
-      data: currentJob,
-    });
-  } catch (error) {
-    res.status(400).json({
-      msg: "SOMETHING WENT WRONG",
-    });
+// GET JOBS
+export const GET_JOBS = asyncMiddleware(async (req, res, next) => {
+  const jobs = await Job.find({});
+  if (!jobs) {
+    throw new NotFoundError("There are no jobs.. please create one");
   }
-};
+  res.status(200).json({
+    msg: "ALL JOBS",
+    counts: jobs.length,
+    data: jobs,
+  });
+});
 
-export const GET_JOBS = async (req, res, next) => {
-  try {
-    res.status(200).json({
-      msg: "ALL JOBS",
-      counts: jobs.length,
-      data: jobs,
-    });
-  } catch (error) {
-    res.status(400).json({
-      msg: "SOMETHING WENT WRONG",
-    });
+// GET JOB
+export const GET_JOB = asyncMiddleware(async (req, res, next) => {
+  const { id: jobID } = req.params;
+  // query
+  const targetJob = await Job.find({ _id: jobID });
+  // validate
+  if (!targetJob[0]) {
+    // return next(new NotFoundError("No job found with id: " + jobID));
+    throw new NotFoundError("No Job found with id: " + jobID);
   }
-};
+  res.status(200).json({
+    msg: "SINGLE JOB",
+    job: targetJob,
+  });
+});
 
 // DELETE JOB
+export const DELETE_JOB = asyncMiddleware(async (req, res, next) => {
+  const { id: jobID } = req.params;
 
-export const DELETE_JOB = async (req, res, next) => {
-  try {
-    const { id: jobID } = req.params;
-
-    const toDelete = jobs.find((job) => job.id === jobID);
-    if (!toDelete) {
-      return res.status(404).json({
-        msg: "No job found with id :   " + jobID,
-      });
-    }
-    const newJobs = jobs.filter((job) => job.id !== jobID);
-    res.status(200).json({
-      msg: " JOB DELETED",
-    });
-  } catch (error) {
-    res.status(400).json({
-      msg: "SOMETHING WENT WRONG",
-    });
+  // query
+  const foundJob = await Job.find({ _id: jobID });
+  if (!foundJob[0]) {
+    throw new NotFoundError("No Job found with id: " + jobID);
   }
-};
+  // delete here...
+  await Job.deleteOne(foundJob[0]);
+  res.status(StatusCodes.OK).json({
+    msg: " JOB DELETED",
+  });
+});
 
 // EDIT JOB
-export const UPDATE_JOB = async (req, res, next) => {
-  try {
-    const { id: jobID } = req.params;
-    const { company, position } = req.body;
-    if (!company || !position) {
-      return res.status(404).json({
-        msg: "All Fields are required",
-      });
-    }
-    const toEdit = jobs.find((job) => job.id === jobID);
-    if (!toEdit) {
-      return res.status(404).json({
-        msg: "No job found with id :   " + jobID,
-      });
-    }
-    // edit here...
-    toEdit.company = company;
-    toEdit.position = position;
-
-    res.status(200).json({
-      msg: " JOB EDITED",
-    });
-  } catch (error) {
-    res.status(400).json({
-      msg: "SOMETHING WENT WRONG",
+export const UPDATE_JOB = asyncMiddleware(async (req, res, next) => {
+  const { id: jobID } = req.params;
+  const { company, position } = req.body;
+  if (!company || !position) {
+    return res.status(404).json({
+      msg: "All Fields are required",
     });
   }
-};
+  // query
+  const foundJob = await Job.find({ _id: jobID });
+
+  if (!foundJob[0]) {
+    throw new NotFoundError("No Job found with id: " + jobID);
+  }
+  // // edit here...
+  foundJob[0].company = company;
+  foundJob[0].position = position;
+
+  await foundJob[0].save();
+
+  res.status(StatusCodes.OK).json({
+    msg: " JOB EDITED",
+  });
+});
