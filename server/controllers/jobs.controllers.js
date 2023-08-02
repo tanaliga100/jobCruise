@@ -10,6 +10,7 @@ export const CREATE_JOB = asyncMiddleware(async (req, res, next) => {
       msg: "All Fields are required",
     });
   }
+
   // submitting data to DB
   const job = await Job.create({ company, position });
   res.status(StatusCodes.CREATED).json({
