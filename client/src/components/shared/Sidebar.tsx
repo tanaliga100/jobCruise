@@ -12,10 +12,8 @@ const Sidebar: React.FC = () => {
             style={({ isActive }) => {
               return {
                 padding: "1rem",
-                color: isActive ? "orange" : "",
-                // fontWeight: isActive ? "10rem" : "",
+                color: isActive ? "orange" : "teal",
                 textDecoration: isActive ? "none" : "none",
-                // border: isActive ? "1px solid tan" : "none",
               };
             }}
             end
@@ -30,10 +28,14 @@ const Sidebar: React.FC = () => {
               }}
             >
               <Grid item xs={2}>
-                <IconButton size="medium">{icon}</IconButton>
+                <IconButton size="large">{icon}</IconButton>
               </Grid>
-              <Grid item xs={8}>
-                <Typography variant="h5" sx={{ fontWeight: "1rem" }}>
+              <Grid item xs={6}>
+                <Typography
+                  variant="h6"
+                  fontWeight={900}
+                  sx={{ fontWeight: "1rem" }}
+                >
                   {linkTitle}
                 </Typography>
               </Grid>

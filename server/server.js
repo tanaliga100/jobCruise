@@ -47,8 +47,3 @@ const start = async () => {
   }
 };
 start();
-
-// username: username,
-// password: password,
-// birth_year: birth_year,
-// email: email,

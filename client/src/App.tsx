@@ -25,7 +25,6 @@ const App: React.FC = () => {
           children: [
             {
               index: true,
-              // path: "login",
               element: <Login />,
             },
             {

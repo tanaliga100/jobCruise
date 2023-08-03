@@ -1,4 +1,5 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import Nav from "../components/screens/Nav";
 import Sidebar from "../components/shared/Sidebar";
@@ -6,9 +7,29 @@ import Sidebar from "../components/shared/Sidebar";
 const DashboardLayout = () => {
   // Initialize useDisclosure hook
 
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const user: { name: string } = {
+    name: "jordan100",
+  };
+
   return (
     <Box>
-      <Nav />
+      <Stack sx={{ position: "static" }}>
+        <Nav
+          user={user}
+          onOpen={handleClickOpen}
+          onClose={handleClose}
+          open={open}
+        />
+      </Stack>
       <Grid container>
         <Grid
           item

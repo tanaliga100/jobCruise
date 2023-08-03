@@ -13,11 +13,11 @@ const LandingPage = () => {
     >
       <Grid item xs={4}>
         <img src={homeImage} alt="landing-image" />
-        <Typography variant="h1" component="animate" fontWeight={800} p={2}>
+        <Typography variant="h3" component="figcaption" fontWeight={800} p={2}>
           Job
           <Typography
-            variant="h2"
-            component="animateTransform"
+            variant="h3"
+            component="code"
             px={2}
             fontWeight={900}
             color="#0288d1;"

@@ -21,3 +21,21 @@ export const jobBodySchema = Joi.object().keys({
 export const jobIdSchema = Joi.object({
   id: Joi.string().alphanum().length(24).required(),
 });
+
+export const userInputSchema = Joi.object().keys({
+  firstName: Joi.string().min(3).max(20).required().label("First Name"),
+  lastName: Joi.string().min(3).max(20).required().label("Last Name"),
+  age: Joi.number().required().label("Age"),
+  gender: Joi.string().required().label("Gender"),
+  DOB: Joi.date().greater(new Date("1900-01-01")).required().label("DOB"),
+  phoneNumber: Joi.number().required().label("Phone Number"),
+  email: Joi.string().email().required().label("Email"),
+  password: Joi.string().alphanum().min(6).required().label("Password"),
+  address: Joi.object().keys({
+    addressLine: Joi.string().required().label("Address Line"),
+    state: Joi.string().required().label("State"),
+    country: Joi.string().required().label("Country"),
+    zipCode: Joi.string().default("1116").label("Zip Code"),
+  }),
+  role: Joi.string().valid("Admin", "User").label("Role"),
+});
