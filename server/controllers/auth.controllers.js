@@ -3,12 +3,13 @@ import {
   BadRequestError,
   UnauthenticatedError,
 } from "../errors/CustomError.js";
-import { asyncMiddleware } from "../middlewares/asyncMiddleware.js";
+import { asyncWrapperMiddleware } from "../middlewares/asyncWrapper.middleware.js";
 import User from "../models/user.model.js";
-import { comparePassword, hashedPassword } from "../utils/passwordUtils.js";
+import { comparePassword, hashedPassword } from "../utils/password.utils.js";
+import { createToken } from "../utils/token.utils.js";
 
 // CONTROLLERS
-export const REGISTER = asyncMiddleware(async (req, res, next) => {
+export const REGISTER = asyncWrapperMiddleware(async (req, res, next) => {
   const isFirstAccount = (await User.countDocuments()) === 0;
   console.log(isFirstAccount);
   req.body.role = isFirstAccount ? "Admin" : "User";
@@ -28,7 +29,7 @@ export const REGISTER = asyncMiddleware(async (req, res, next) => {
   });
 });
 
-export const LOGIN = asyncMiddleware(async (req, res, next) => {
+export const LOGIN = asyncWrapperMiddleware(async (req, res, next) => {
   // cheched the req body
   const { email, password } = req.body;
   if (!email || !password) {
@@ -39,8 +40,21 @@ export const LOGIN = asyncMiddleware(async (req, res, next) => {
   // compare the password
   await comparePassword(password, user.password);
 
-  res.status(200).json({
-    msg: "Logging in...",
+  // sends token
+  const token = createToken({
+    userId: user._id,
+    email: user.email,
+    role: user.role,
+  });
+  const oneDay = 1000 * 60 * 60 * 24;
+  const seconds = 1000 * 10;
+  res.cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + oneDay),
+    secure: process.env.NODE_ENV === "production",
+  });
+  res.status(StatusCodes.OK).json({
+    msg: `${user.firstName} just logged in`,
   });
 });
 

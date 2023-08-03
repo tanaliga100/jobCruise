@@ -1,13 +1,52 @@
 import { StatusCodes } from "http-status-codes";
-import { NotFoundError } from "../errors/CustomError.js";
-import { asyncMiddleware } from "../middlewares/asyncMiddleware.js";
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthorizedError,
+} from "../errors/CustomError.js";
+import { asyncWrapperMiddleware } from "../middlewares/asyncWrapper.middleware.js";
 import Job from "../models/job.model.js";
 // CREATE JOB
-export const CREATE_JOB = asyncMiddleware(async (req, res, next) => {
-  const { company, position } = req.body;
+export const CREATE_JOB = asyncWrapperMiddleware(async (req, res, next) => {
+  // payload token
+  console.log("TOKEN PAYLOAD", req.currentUser);
+
+  const {
+    company,
+    position,
+    salary,
+    jobStatus,
+    jobType,
+    jobLocation,
+    jobQualifications,
+  } = req.body;
+
+  // Check if any of the properties is empty
+  if (
+    !company ||
+    !position ||
+    !salary ||
+    !jobStatus ||
+    !jobType ||
+    !jobLocation ||
+    !jobQualifications
+  ) {
+    throw new BadRequestError("All fields are required");
+  }
+
+  // SINGLE
+  const tempJob = {
+    ...req.body,
+    postedBy: {
+      id: req.currentUser.userId,
+      role: req.currentUser.role,
+      name: req.currentUser.email,
+    },
+  };
 
   // submitting data to DB
-  const job = await Job.create({ company, position });
+  const job = await Job.create(tempJob);
+  console.log("NEWLY CREATED JOB", job);
   // send back the reponse
   res.status(StatusCodes.CREATED).json({
     msg: "JOB CREATED",
@@ -16,7 +55,14 @@ export const CREATE_JOB = asyncMiddleware(async (req, res, next) => {
 });
 
 // GET JOBS
-export const GET_JOBS = asyncMiddleware(async (req, res, next) => {
+export const GET_JOBS = asyncWrapperMiddleware(async (req, res, next) => {
+  console.log("CURRENT USER ", req.currentUser.name);
+
+  if (!req.currentUser.role.toLowerCase() === "admin") {
+    throw new UnauthorizedError(
+      "YOu are not authorized to perform this operation"
+    );
+  }
   const jobs = await Job.find({});
   if (!jobs) {
     throw new NotFoundError("There are no jobs.. please create one");
@@ -29,8 +75,9 @@ export const GET_JOBS = asyncMiddleware(async (req, res, next) => {
 });
 
 // GET JOB
-export const GET_JOB = asyncMiddleware(async (req, res, next) => {
+export const GET_JOB = asyncWrapperMiddleware(async (req, res, next) => {
   const { id: jobID } = req.params;
+  // console.log("currentUser", req.currentUser);
   // query
   const targetJob = await Job.find({ _id: jobID });
   // validate
@@ -45,7 +92,7 @@ export const GET_JOB = asyncMiddleware(async (req, res, next) => {
 });
 
 // DELETE JOB
-export const DELETE_JOB = asyncMiddleware(async (req, res, next) => {
+export const DELETE_JOB = asyncWrapperMiddleware(async (req, res, next) => {
   const { id: jobID } = req.params;
 
   // query
@@ -61,7 +108,7 @@ export const DELETE_JOB = asyncMiddleware(async (req, res, next) => {
 });
 
 // EDIT JOB
-export const UPDATE_JOB = asyncMiddleware(async (req, res, next) => {
+export const UPDATE_JOB = asyncWrapperMiddleware(async (req, res, next) => {
   const { id: jobID } = req.params;
   const { company, position } = req.body;
 
