@@ -31,6 +31,7 @@ export const REGISTER = asyncWrapperMiddleware(async (req, res, next) => {
 
 export const LOGIN = asyncWrapperMiddleware(async (req, res, next) => {
   // cheched the req body
+
   const { email, password } = req.body;
   if (!email || !password) {
     throw new BadRequestError("Both fields are required");
@@ -59,13 +60,11 @@ export const LOGIN = asyncWrapperMiddleware(async (req, res, next) => {
 });
 
 export const LOGOUT = async (req, res, next) => {
-  try {
-    res.status(200).json({
-      msg: "USER LOGOUT",
-    });
-  } catch (error) {
-    res.status(400).json({
-      msg: "SOMETHING WENT WRONG",
-    });
-  }
+  res.cookie("token", "logout", {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.status(StatusCodes.OK).json({
+    msg: `User just logged out`,
+  });
 };

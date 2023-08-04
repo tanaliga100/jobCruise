@@ -1,9 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import {
-  BadRequestError,
-  NotFoundError,
-  UnauthorizedError,
-} from "../errors/CustomError.js";
+import { BadRequestError, NotFoundError } from "../errors/CustomError.js";
 import { asyncWrapperMiddleware } from "../middlewares/asyncWrapper.middleware.js";
 import Job from "../models/job.model.js";
 // CREATE JOB
@@ -56,22 +52,36 @@ export const CREATE_JOB = asyncWrapperMiddleware(async (req, res, next) => {
 
 // GET JOBS
 export const GET_JOBS = asyncWrapperMiddleware(async (req, res, next) => {
-  console.log("CURRENT USER ", req.currentUser.name);
+  console.log("CURRENT USER ", req.currentUser);
 
-  if (!req.currentUser.role.toLowerCase() === "admin") {
-    throw new UnauthorizedError(
-      "YOu are not authorized to perform this operation"
-    );
+  if (req.currentUser.role === "Admin") {
+    const jobs = await Job.find({});
+    if (!jobs) {
+      throw new NotFoundError("There are no jobs.. please create one");
+    }
+
+    return res.status(200).json({
+      msg: "ALL JOBS",
+      counts: jobs.length,
+      data: jobs,
+    });
+  } else {
+    const jobs = await Job.find({ "postedBy.id": req.currentUser.userId });
+
+    if (!jobs) {
+      throw new NotFoundError("There are no jobs.. please create one");
+    }
+    return res.status(200).json({
+      msg: `JOBS CREATED  BY : ${req.currentUser.role}`,
+      counts: jobs.length,
+      data: jobs,
+    });
   }
-  const jobs = await Job.find({});
-  if (!jobs) {
-    throw new NotFoundError("There are no jobs.. please create one");
-  }
-  res.status(200).json({
-    msg: "ALL JOBS",
-    counts: jobs.length,
-    data: jobs,
-  });
+  // res.status(200).json({
+  //   msg: "ALL JOBS",
+  //   counts: jobs.length,
+  //   data: jobs,
+  // });
 });
 
 // GET JOB

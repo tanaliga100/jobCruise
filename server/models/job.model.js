@@ -46,12 +46,16 @@ const JobSchema = new mongoose.Schema(
     },
     jobStatus: {
       type: String,
-      enum: ["pending", "interview", "declined"],
-      default: "pending",
+      enum: ["open", "closed"],
+      default: "open",
+    },
+    jobSetting: {
+      type: String,
+      enum: ["remote", "on-site"],
     },
     jobType: {
       type: String,
-      enum: ["full-time", "intern", "part-time"],
+      enum: ["full-time", "contractual", "part-time"],
       default: "full-time",
     },
     jobLocation: jobLocationSchema,
@@ -71,6 +75,11 @@ const JobSchema = new mongoose.Schema(
         required: true,
       },
     },
+    // postedBy: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
   },
   {
     timestamps: true,

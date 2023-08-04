@@ -11,8 +11,8 @@ const router = express.Router();
 
 router
   .route("/")
-  .post(authorizationMiddleware(["Admin"]), CREATE_JOB)
-  .get(GET_JOBS);
+  .post(authorizationMiddleware([" Admin", "User"]), CREATE_JOB)
+  .get(authorizationMiddleware(["Admin", "User"]), GET_JOBS);
 router
   .route("/:id")
   .get(authorizationMiddleware(["Admin"]), GET_JOB)

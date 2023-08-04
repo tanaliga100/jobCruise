@@ -5,12 +5,19 @@ export const authorizationMiddleware = (roles) => {
   // if admin then return
   // else throw unauthorized
   return (req, res, next) => {
-    console.log("AUTHORIZATION USER", req.currentUser);
-    if (req.currentUser.role.toLowerCase() !== roles[0].toLowerCase()) {
-      throw new UnauthorizedError(
-        "You are not authorized to perform this operation"
-      );
+    console.log("FROM AUTHORI", roles);
+    const userRole = req.currentUser.role.toLowerCase().trim();
+    const allowedRoles = roles.map((role) => role.toLowerCase().trim());
+    if (allowedRoles.includes(userRole)) {
+      return next();
     }
-    next();
+    throw new UnauthorizedError("UNAUTHORIZED !!!");
   };
 };
+
+// console.log("AUTHORIZATION USER", req.currentUser);
+// if (req.currentUser.role.toLowerCase() !== roles[0].toLowerCase()) {
+//   throw new UnauthorizedError(
+//     "You are not authorized to perform this operation"
+//   );
+// }
