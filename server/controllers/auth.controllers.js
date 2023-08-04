@@ -46,6 +46,7 @@ export const LOGIN = asyncWrapperMiddleware(async (req, res, next) => {
     userId: user._id,
     email: user.email,
     role: user.role,
+    name: user.firstName,
   });
   const oneDay = 1000 * 60 * 60 * 24;
   const seconds = 1000 * 10;

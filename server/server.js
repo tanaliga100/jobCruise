@@ -12,6 +12,7 @@ import { errorHandlerMiddleware } from "./middlewares/errorHandler.middleware.js
 import { notFoundMiddleware } from "./middlewares/notFound.middleware.js";
 import AuthRoute from "./routes/auth.routes.js";
 import JobsRoute from "./routes/jobs.routes.js";
+import UserRoute from "./routes/user.routes.js";
 
 // HEAD MIDDLEWARES
 dotenv.config();
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
   res.send("Alive ");
 });
 app.use(`/api/v1/auth`, AuthRoute);
+app.use(`/api/v1/users`, authenticationMiddleware, UserRoute);
 app.use(`/api/v1/jobs`, authenticationMiddleware, JobsRoute);
 
 // // simulation express validator

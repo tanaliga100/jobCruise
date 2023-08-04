@@ -11,7 +11,9 @@ export const authorizationMiddleware = (roles) => {
     if (allowedRoles.includes(userRole)) {
       return next();
     }
-    throw new UnauthorizedError("UNAUTHORIZED !!!");
+    throw new UnauthorizedError(
+      "You are not authorized to perform this operation"
+    );
   };
 };
 
