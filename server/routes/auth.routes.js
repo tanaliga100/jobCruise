@@ -1,8 +1,12 @@
 import express from "express";
-import { LOGIN, LOGOUT, REGISTER } from "../controllers/auth.controllers.js";
+import {
+  FORGOT_PASSWORD,
+  LOGIN,
+  REGISTER,
+} from "../controllers/auth.controllers.js";
 const router = express.Router();
 router.post("/register", REGISTER);
 router.post("/login", LOGIN);
-router.get("/logout", LOGOUT);
+router.post("/forgot-password", FORGOT_PASSWORD);
 
 export default router;

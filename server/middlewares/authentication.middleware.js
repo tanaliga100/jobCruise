@@ -4,8 +4,8 @@ import { verifyToken } from "../utils/token.utils.js";
 export const authenticationMiddleware = (req, res, next) => {
   try {
     // checked if the cookie is present
-
-    if (!req.cookies || req.cookies.token) {
+    console.log(req.cookies);
+    if (!req.cookies && !req.cookies.token) {
       throw new UnauthenticatedError("Authentication Invalid");
     }
     // verify the token
@@ -20,7 +20,7 @@ export const authenticationMiddleware = (req, res, next) => {
     };
     next();
   } catch (error) {
-    console.log("AUTH ERROR", error);
-    throw new UnauthenticatedError(" Please Login | Register");
+    // console.log("AUTH ERROR", error);
+    next(error);
   }
 };

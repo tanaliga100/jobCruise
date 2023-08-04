@@ -56,20 +56,24 @@ export const GET_JOBS = asyncWrapperMiddleware(async (req, res, next) => {
 
   if (req.currentUser.role === "Admin") {
     const jobs = await Job.find({});
-    if (!jobs) {
-      throw new NotFoundError("There are no jobs.. please create one");
+    if (jobs.length === 0) {
+      throw new NotFoundError(
+        "There are no jobs created by Admin.. please create one"
+      );
     }
 
     return res.status(200).json({
-      msg: "ALL JOBS",
+      msg: `JOBS CREATED BY : ${req.current.role}`,
       counts: jobs.length,
       data: jobs,
     });
   } else {
     const jobs = await Job.find({ "postedBy.id": req.currentUser.userId });
 
-    if (!jobs) {
-      throw new NotFoundError("There are no jobs.. please create one");
+    if (jobs.length === 0) {
+      throw new NotFoundError(
+        "There are no jobs created by a User.. please create one"
+      );
     }
     return res.status(200).json({
       msg: `JOBS CREATED  BY : ${req.currentUser.role}`,

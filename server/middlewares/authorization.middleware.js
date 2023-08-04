@@ -5,7 +5,7 @@ export const authorizationMiddleware = (roles) => {
   // if admin then return
   // else throw unauthorized
   return (req, res, next) => {
-    console.log("FROM AUTHORI", roles);
+    console.log("AUTHORIZED ROLES ARE :", roles);
     const userRole = req.currentUser.role.toLowerCase().trim();
     const allowedRoles = roles.map((role) => role.toLowerCase().trim());
     if (allowedRoles.includes(userRole)) {
