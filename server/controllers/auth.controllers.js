@@ -41,6 +41,8 @@ export const REGISTER = asyncWrapperMiddleware(async (req, res, next) => {
 });
 
 export const LOGIN = asyncWrapperMiddleware(async (req, res, next) => {
+  const currentUserLoggedIn = req.currentUser;
+
   // cheched the req body
   const { email, password } = req.body;
   if (!email || !password) {
@@ -66,12 +68,13 @@ export const LOGIN = asyncWrapperMiddleware(async (req, res, next) => {
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
   });
-  const response = `Welcome back, ${
+  const response = `Welcome, ${
     user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
   } ${user.lastName.charAt(0).toUpperCase()}.`;
 
   res.status(StatusCodes.OK).json({
-    msg: response,
+    msg: `${response}`,
+    role: `${user.role}`,
   });
 });
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./components/screens/Login";
-import Register from "./components/screens/Register";
+import Register, { registerAction } from "./components/screens/Register";
 import NotFoundPage from "./components/shared/NotFound";
 import DashboardLayout from "./layout/DashboardLayout";
 import RootLayout from "./layout/RootLayout";
@@ -11,7 +11,6 @@ import DashboardPage from "./pages/DashboardPage";
 import EditJob from "./pages/EditJob";
 import LandingPage from "./pages/LandingPage";
 import Profile from "./pages/ProfilePage";
-
 const App: React.FC = () => {
   const router = createBrowserRouter([
     {
@@ -30,10 +29,10 @@ const App: React.FC = () => {
             {
               path: "register",
               element: <Register />,
+              action: registerAction,
             },
           ],
         },
-
         {
           path: "dashboard",
           element: <DashboardLayout />,

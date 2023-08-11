@@ -21,6 +21,7 @@ const FormRow: React.FC<IProps> = (props) => {
           size="small"
           type={props.type}
           required
+          // value={props.defaulValue}
           placeholder={props.placeholder}
         />
       </FormControl>

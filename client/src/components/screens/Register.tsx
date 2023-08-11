@@ -2,41 +2,70 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { Form, Link } from "react-router-dom";
 import FormRow from "../shared/FormRow";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function registerAction({ request }: any) {
+  //   // eslint-disable-next-line prefer-const
+  const formdata = await request.formData();
+
+  //   // eslint-disable-next-line prefer-const
+  //   let submission: { [key: string]: string } = {};
+  //   for (const [key, value] of [...formdata.entries()]) {
+  //     submission[key] = value;
+  //   }
+  //   console.log(submission);
+  //   const data = Object.fromEntries(await request.formData());
+  const toSubmit = {
+    first: await formdata.get("firstName"),
+    second: await formdata.get("lastName"),
+    email: await formdata.get("email"),
+    password: await formdata.get("password"),
+  };
+
+  console.log("gathered", formdata);
+
+  return null;
+}
+
 const Register: React.FC = () => {
   return (
     <Box>
-      <Form>
+      <Form method="post">
         <FormRow
           labelText="First Name"
           name="firstName"
           type="text"
           placeholder="Enter First Name"
+          // defaulValue="testFirstName"
         />
         <FormRow
           labelText="Last Name"
           name="lastName"
           type="text"
           placeholder="Enter Last Name"
+          // defaulValue="testLastName"
         />
-        <FormRow
-          labelText="Location"
-          name="location"
-          type="text"
-          placeholder="Enter Location"
-        />
+
         <FormRow
           labelText="Email"
           name="email"
           type="email"
           placeholder="Enter Email"
+          // defaulValue="test@mail.com"
         />
         <FormRow
           labelText="Password"
           name="password"
           type="password"
           placeholder="Enter Password"
+          // defaulValue="secret"
         />
-        <Button variant="contained" sx={{ m: "1rem" }} color="info">
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ m: "1rem" }}
+          color="info"
+        >
           Submit
         </Button>
         <Typography>

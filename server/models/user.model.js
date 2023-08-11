@@ -7,22 +7,26 @@ const addressSchema = new mongoose.Schema(
       maxlength: 50,
       required: true,
       trim: true,
+      default: "#22 Zone 1",
     },
     state: {
       type: String,
       maxlength: 15,
       required: true,
       trim: true,
+      defaul: "Manila",
     },
     country: {
       type: String,
       maxlength: 20,
       trim: true,
+      default: "Philippines",
     },
     zipCode: {
       type: String,
       maxlength: 7,
       trim: true,
+      default: "1116",
     },
   },
   {
@@ -46,45 +50,6 @@ const UserSchema = new mongoose.Schema(
       maxlength: 20,
       trim: true,
     },
-    age: {
-      type: Number,
-      required: true,
-      min: 18, // Minimum age should be 18
-    },
-    gender: {
-      type: String,
-      enum: ["Male", "Female", "Other"],
-      required: true,
-    },
-    department: {
-      type: String,
-      enum: ["Admin", "Integration", "Marketing", "Accounting", "N/A"],
-      required: true,
-      default: "N/A",
-    },
-    DOB: {
-      type: Date,
-      required: true,
-      validate: {
-        validator: function (value) {
-          // Custom validation to ensure the DOB is not in the future
-          return value <= new Date();
-        },
-        message: "Date of Birth cannot be in the future",
-      },
-    },
-    phoneNumber: {
-      type: String,
-      required: true,
-      validate: {
-        validator: function (value) {
-          // Custom validation to ensure the phoneNumber is a valid Philippine number format
-          return /^\+639\d{9}$/.test(value);
-        },
-        message:
-          "Phone Number must be a valid Philippine number format (+639XXXXXXXXX)",
-      },
-    },
     email: {
       type: String,
       required: true,
@@ -105,6 +70,50 @@ const UserSchema = new mongoose.Schema(
 
       minlength: 6, // Password should have at least 6 characters
     },
+    age: {
+      type: Number,
+      required: true,
+      min: 18, // Minimum age should be 18
+      default: 18,
+    },
+    gender: {
+      type: String,
+      enum: ["Male", "Female", "Other"],
+      required: true,
+      default: "Other",
+    },
+    department: {
+      type: String,
+      enum: ["Admin", "Integration", "Marketing", "Accounting", "N/A"],
+      required: true,
+      default: "N/A",
+    },
+    DOB: {
+      type: Date,
+      required: true,
+      validate: {
+        validator: function (value) {
+          // Custom validation to ensure the DOB is not in the future
+          return value <= new Date();
+        },
+        message: "Date of Birth cannot be in the future",
+      },
+      default: "2000-01-01",
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+      validate: {
+        validator: function (value) {
+          // Custom validation to ensure the phoneNumber is a valid Philippine number format
+          return /^\+639\d{9}$/.test(value);
+        },
+        message:
+          "Phone Number must be a valid Philippine number format (+639XXXXXXXXX)",
+      },
+      default: "+63690243354",
+    },
+
     address: addressSchema, // sub-document
     role: {
       type: String,

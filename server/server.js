@@ -1,10 +1,11 @@
 // PACKAGES
 const app = express();
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import * as dotenv from "dotenv";
 import express from "express";
+import helmet from "helmet";
 import morgan from "morgan";
-
 // ROUTES AND CONTROLLERS
 import { connectDB } from "./config/connectDB.js";
 import { authenticationMiddleware } from "./middlewares/authentication.middleware.js";
@@ -16,6 +17,8 @@ import UserRoute from "./routes/user.routes.js";
 
 // HEAD MIDDLEWARES
 dotenv.config();
+app.use(cors({ origin: "*" }));
+app.use(helmet());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
@@ -25,6 +28,16 @@ app.use(express.json());
 // ROUTES
 app.get("/", (req, res) => {
   res.send("Alive ");
+});
+app.use(`/api/v1/test`, (req, res) => {
+  res.json({ msg: "test route" });
+});
+
+app.use(`/api/v1/forgot-password`, (req, res) => {
+  res.send(`
+  <h1>This is ongoing</h1>
+<a href="/"> Please go back</a>  
+     `);
 });
 app.use(`/api/v1/auth`, AuthRoute);
 app.use(`/api/v1/users`, authenticationMiddleware, UserRoute);

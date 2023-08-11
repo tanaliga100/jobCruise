@@ -11,11 +11,7 @@ import { authorizationMiddleware } from "../middlewares/authorization.middleware
 const router = express.Router();
 router.get("/logout", LOGOUT);
 router.get("/current-user", CURRENT_USER);
-router.get(
-  "/all-users",
-  authorizationMiddleware(["Admin", "User"]),
-  GET_ALL_USERS
-);
+router.get("/all-users", GET_ALL_USERS);
 
 router.get(
   "/admin/app-stats",

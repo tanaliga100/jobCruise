@@ -6,12 +6,6 @@ const Login = () => {
   return (
     <Box>
       <Form>
-        {/* <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input type="email" required />
-            <FormLabel>Password</FormLabel>
-            <Input type="password" required />
-          </FormControl> */}
         <FormRow
           labelText="Email"
           name="Email"
@@ -34,9 +28,16 @@ const Login = () => {
           </Link>
         </Typography>
       </Form>
+      <Typography variant="body2" pt={2} color="error">
+        Forgot Password
+        <Link to="/" className="link">
+          Click Here
+        </Link>
+      </Typography>
     </Box>
   );
 };
+
 export default Login;
 // const Wrapper = styled.div`
 //   display: flex;

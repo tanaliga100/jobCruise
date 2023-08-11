@@ -23,14 +23,13 @@ export const CURRENT_USER = asyncWrapperMiddleware(async (req, res, next) => {
   const currentUserLoggedIn = req.currentUser;
 
   res.status(StatusCodes.OK).json({
-    msg: `Current User: ${currentUserLoggedIn.name}`,
-    user: currentUserLoggedIn,
+    msg: `${currentUserLoggedIn.name}`,
   });
 });
 
 export const GET_ALL_USERS = asyncWrapperMiddleware(async (req, res, next) => {
   const allusers = await User.find({}).select(
-    "firstName lastName gender email"
+    "firstName lastName gender email role"
   );
   res.status(StatusCodes.OK).json({
     msg: "ALL USERS",
